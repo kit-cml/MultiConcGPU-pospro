@@ -202,7 +202,11 @@ int get_cvar_data_from_file(const char *file_name, unsigned int limit, double *c
 
     if ((fp_cvar = fopen(file_name, "r")) == NULL) {
         printf("Cannot open file %s\n", file_name);
+    } else
+    {
+        printf("cvar file %s\n", file_name);
     }
+    
     idx = 0;
     int sample_size = 0;
     fgets(buffer_cvar, sizeof(buffer_cvar), fp_cvar);                                              // skip header
@@ -225,7 +229,6 @@ int get_init_data_from_file(const char *file_name, double *init_states) {
     // buffer for writing in snprintf() function
     char buffer_cache[1023];
     FILE *fp_cache;
-    // cvar_t cvar;
     char *token;
     // std::array<double,18> temp_array;
     unsigned long idx;
@@ -473,7 +476,7 @@ int main(int argc, char **argv) {
     double *h_states, *h_time, *h_dt, *h_ical, *h_inal, *h_cai_result, *h_ina, *h_ito, *h_ikr, *h_iks, *h_ik1;
     cipa_t *h_cipa_result;
 
-    h_states = (double *)malloc(datapoint_size * sample_size * sizeof(double));
+    
     printf("...allocated for STATES, \n");
     h_time = (double *)malloc(datapoint_size * sample_size * sizeof(double));
     printf("...allocated for time, \n");
