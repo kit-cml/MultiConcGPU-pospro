@@ -476,7 +476,7 @@ int main(int argc, char **argv) {
     double *h_states, *h_time, *h_dt, *h_ical, *h_inal, *h_cai_result, *h_ina, *h_ito, *h_ikr, *h_iks, *h_ik1;
     cipa_t *h_cipa_result;
 
-    
+    h_states = (double *)malloc(datapoint_size * sample_size * sizeof(double)); 
     printf("...allocated for STATES, \n");
     h_time = (double *)malloc(datapoint_size * sample_size * sizeof(double));
     printf("...allocated for time, \n");
@@ -516,7 +516,11 @@ int main(int argc, char **argv) {
     cudaMemcpy(h_iks, iks, sample_size * datapoint_size * sizeof(double), cudaMemcpyDeviceToHost);
     cudaMemcpy(h_ik1, ik1, sample_size * datapoint_size * sizeof(double), cudaMemcpyDeviceToHost);
 
+     printf("done copying ion channels \n");
+
     cudaMemcpy(h_cipa_result, cipa_result, sample_size * sizeof(cipa_t), cudaMemcpyDeviceToHost);
+
+     printf("done copying cipa results \n");
 
     cudaFree(d_ALGEBRAIC);
     cudaFree(d_CONSTANTS);
@@ -540,6 +544,8 @@ int main(int argc, char **argv) {
     cudaFree(ikr);
     cudaFree(iks);
     cudaFree(ik1);
+
+     printf("done freeing memory \n");
 
     FILE *writer;
     int check;

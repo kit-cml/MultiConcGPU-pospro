@@ -4,6 +4,6 @@ Simulation_Mode = 0
 Celltype = 0
 Is_Dutta = 1
 Is_Post_Processing = 1
-Use_Conductance_Variability = 0
+Use_Conductance_Variability = 1
 Pace_Find_Steepest = 250
 GPU_Index = 0
