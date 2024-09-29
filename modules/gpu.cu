@@ -192,7 +192,7 @@ __device__ void kernel_DoDrugSim_single(double *d_ic50, double *d_cvar, double d
 
     while (tcurr[sample_id] < tmax) {
         computeRates(tcurr[sample_id], d_CONSTANTS, d_RATES, d_STATES, d_ALGEBRAIC, sample_id);
-
+        //printf("in the loop\n");
         dt_set = set_time_step(tcurr[sample_id], time_point, max_time_step, d_CONSTANTS, d_RATES, d_STATES, d_ALGEBRAIC,
                                sample_id);
 
@@ -224,7 +224,7 @@ __device__ void kernel_DoDrugSim_single(double *d_ic50, double *d_cvar, double d
         //  how can we properly update this value?
         //  temp_result[sample_id].ca_valley = temp_result[sample_id].cai_data[0];
 
-        // printf("tcurr at core %d: %lf\n", sample_id, tcurr[sample_id]);
+        if (sample_id == 1) {printf("tcurr : %lf\n", tcurr[sample_id]);}
         if (floor((tcurr[sample_id] + dt_set) / bcl) == floor(tcurr[sample_id] / bcl)) {
             dt[sample_id] = dt_set;
         } else {
