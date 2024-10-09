@@ -969,6 +969,54 @@ RATES[(offset * num_of_rates) + cansr] = ALGEBRAIC[(offset * num_of_algebraic) +
 RATES[(offset * num_of_rates) + cajsr] =  ALGEBRAIC[(offset * num_of_algebraic) + Bcajsr]*(ALGEBRAIC[(offset * num_of_algebraic) + Jtr] - ALGEBRAIC[(offset * num_of_algebraic) + Jrel]);
 }
 
+__device__ void solveEuler( double *STATES, double *RATES, double dt, int offset){
+
+  int num_of_states = 41;
+  int num_of_rates = 41;
+
+  STATES[(offset * num_of_states) +V] = STATES[(offset * num_of_states) + V] + RATES[(offset * num_of_rates) + V] * dt;
+  STATES[(offset * num_of_states) + CaMKt] = STATES[(offset * num_of_states) + CaMKt] + RATES[(offset * num_of_rates) + CaMKt] * dt;
+  STATES[(offset * num_of_states) + cass] = STATES[(offset * num_of_states) + cass] + RATES[(offset * num_of_rates) + cass] * dt;
+  STATES[(offset * num_of_states) + nai] = STATES[(offset * num_of_states) + nai] + RATES[(offset * num_of_rates) + nai] * dt;
+  STATES[(offset * num_of_states) + nass] = STATES[(offset * num_of_states) + nass] + RATES[(offset * num_of_rates) + nass] * dt;
+  STATES[(offset * num_of_states) + ki] = STATES[(offset * num_of_states) + ki] + RATES[(offset * num_of_rates) + ki] * dt;
+  STATES[(offset * num_of_states) + kss] = STATES[(offset * num_of_states) + kss] + RATES[(offset * num_of_rates) + kss] * dt;
+  STATES[(offset * num_of_states) + cansr] = STATES[(offset * num_of_states) + cansr] + RATES[(offset * num_of_rates) + cansr] * dt;
+  STATES[(offset * num_of_states) + cajsr] = STATES[(offset * num_of_states) + cajsr] + RATES[(offset * num_of_rates) + cajsr] * dt;
+  STATES[(offset * num_of_states) + cai] = STATES[(offset * num_of_states) + cai] + RATES[(offset * num_of_rates) + cai] * dt;
+  STATES[(offset * num_of_states) + m] = STATES[(offset * num_of_states) + m] + RATES[(offset * num_of_rates) + m] * dt;
+  STATES[(offset * num_of_states) + hf] = STATES[(offset * num_of_states) + hf] + RATES[(offset * num_of_rates) + hf] * dt;
+  STATES[(offset * num_of_states) + hs] = STATES[(offset * num_of_states) + hs] + RATES[(offset * num_of_rates) + hs] * dt;
+  STATES[(offset * num_of_states) + j] = STATES[(offset * num_of_states) + j] + RATES[(offset * num_of_rates) + j] * dt;
+  STATES[(offset * num_of_states) + hsp] = STATES[(offset * num_of_states) + hsp] + RATES[(offset * num_of_rates) + hsp] * dt;
+  STATES[(offset * num_of_states) + jp] = STATES[(offset * num_of_states) + jp] + RATES[(offset * num_of_rates) + jp] * dt;
+  STATES[(offset * num_of_states) + mL] = STATES[(offset * num_of_states) + mL] + RATES[(offset * num_of_rates) + mL] * dt;
+  STATES[(offset * num_of_states) + hL] = STATES[(offset * num_of_states) + hL] + RATES[(offset * num_of_rates) + hL] * dt;
+  STATES[(offset * num_of_states) + hLp] = STATES[(offset * num_of_states) + hLp] + RATES[(offset * num_of_rates) + hLp] * dt;
+  STATES[(offset * num_of_states) + a] = STATES[(offset * num_of_states) + a] + RATES[(offset * num_of_rates) + a] * dt;
+  STATES[(offset * num_of_states) + iF] = STATES[(offset * num_of_states) + iF] + RATES[(offset * num_of_rates) + iF] * dt;
+  STATES[(offset * num_of_states) + iS] = STATES[(offset * num_of_states) + iS] + RATES[(offset * num_of_rates) + iS] * dt;
+  STATES[(offset * num_of_states) + ap] = STATES[(offset * num_of_states) + ap] + RATES[(offset * num_of_rates) + ap] * dt;
+  STATES[(offset * num_of_states) + iFp] = STATES[(offset * num_of_states) + iFp] + RATES[(offset * num_of_rates) + iFp] * dt;
+  STATES[(offset * num_of_states) + iSp] = STATES[(offset * num_of_states) + iSp] + RATES[(offset * num_of_rates) + iSp] * dt;
+  STATES[(offset * num_of_states) + d] = STATES[(offset * num_of_states) + d] + RATES[(offset * num_of_rates) + d] * dt;
+  STATES[(offset * num_of_states) + ff] = STATES[(offset * num_of_states) + ff] + RATES[(offset * num_of_rates) + ff] * dt;
+  STATES[(offset * num_of_states) + fs] = STATES[(offset * num_of_states) + fs] + RATES[(offset * num_of_rates) + fs] * dt;
+  STATES[(offset * num_of_states) + fcaf] = STATES[(offset * num_of_states) + fcaf] + RATES[(offset * num_of_rates) + fcaf] * dt;
+  STATES[(offset * num_of_states) + fcas] = STATES[(offset * num_of_states) + fcas] + RATES[(offset * num_of_rates) + fcas] * dt;
+  STATES[(offset * num_of_states) + jca] = STATES[(offset * num_of_states) + jca] + RATES[(offset * num_of_rates) + jca] * dt;
+  STATES[(offset * num_of_states) + ffp] = STATES[(offset * num_of_states) + ffp] + RATES[(offset * num_of_rates) + ffp] * dt;
+  STATES[(offset * num_of_states) + fcafp] = STATES[(offset * num_of_states) + fcafp] + RATES[(offset * num_of_rates) + fcafp] * dt;
+  STATES[(offset * num_of_states) + nca] = STATES[(offset * num_of_states) + nca] + RATES[(offset * num_of_rates) + nca] * dt;
+  STATES[(offset * num_of_states) + xrf] = STATES[(offset * num_of_states) + xrf] + RATES[(offset * num_of_rates) + xrf] * dt;
+  STATES[(offset * num_of_states) + xrs] = STATES[(offset * num_of_states) + xrs] + RATES[(offset * num_of_rates) + xrs] * dt;
+  STATES[(offset * num_of_states) + xs1] = STATES[(offset * num_of_states) + xs1] + RATES[(offset * num_of_rates) + xs1] * dt;
+  STATES[(offset * num_of_states) + xs2] = STATES[(offset * num_of_states) + xs2] + RATES[(offset * num_of_rates) + xs2] * dt;
+  STATES[(offset * num_of_states) + xk1] = STATES[(offset * num_of_states) + xk1] + RATES[(offset * num_of_rates) + xk1] * dt;
+  STATES[(offset * num_of_states) + Jrelnp] = STATES[(offset * num_of_states) + Jrelnp] + RATES[(offset * num_of_rates) + Jrelnp] * dt;
+  STATES[(offset * num_of_states) + Jrelp] = STATES[(offset * num_of_states) + Jrelp] + RATES[(offset * num_of_rates) + Jrelp] * dt;
+}
+
 __device__ void solveAnalytical(double *CONSTANTS, double *STATES, double *ALGEBRAIC, double *RATES, double dt, int offset)
 {
   int num_of_constants = 146;
@@ -977,47 +1025,7 @@ __device__ void solveAnalytical(double *CONSTANTS, double *STATES, double *ALGEB
   int num_of_rates = 41;
   
 // #ifdef EULER
-//   STATES[V] = STATES[V] + RATES[V] * dt;
-//   STATES[CaMKt] = STATES[CaMKt] + RATES[CaMKt] * dt;
-//   STATES[cass] = STATES[cass] + RATES[cass] * dt;
-//   STATES[nai] = STATES[nai] + RATES[nai] * dt;
-//   STATES[nass] = STATES[nass] + RATES[nass] * dt;
-//   STATES[ki] = STATES[ki] + RATES[ki] * dt;
-//   STATES[kss] = STATES[kss] + RATES[kss] * dt;
-//   STATES[cansr] = STATES[cansr] + RATES[cansr] * dt;
-//   STATES[cajsr] = STATES[cajsr] + RATES[cajsr] * dt;
-//   STATES[cai] = STATES[cai] + RATES[cai] * dt;
-//   STATES[m] = STATES[m] + RATES[m] * dt;
-//   STATES[hf] = STATES[hf] + RATES[hf] * dt;
-//   STATES[hs] = STATES[hs] + RATES[hs] * dt;
-//   STATES[j] = STATES[j] + RATES[j] * dt;
-//   STATES[hsp] = STATES[hsp] + RATES[hsp] * dt;
-//   STATES[jp] = STATES[jp] + RATES[jp] * dt;
-//   STATES[mL] = STATES[mL] + RATES[mL] * dt;
-//   STATES[hL] = STATES[hL] + RATES[hL] * dt;
-//   STATES[hLp] = STATES[hLp] + RATES[hLp] * dt;
-//   STATES[a] = STATES[a] + RATES[a] * dt;
-//   STATES[iF] = STATES[iF] + RATES[iF] * dt;
-//   STATES[iS] = STATES[iS] + RATES[iS] * dt;
-//   STATES[ap] = STATES[ap] + RATES[ap] * dt;
-//   STATES[iFp] = STATES[iFp] + RATES[iFp] * dt;
-//   STATES[iSp] = STATES[iSp] + RATES[iSp] * dt;
-//   STATES[d] = STATES[d] + RATES[d] * dt;
-//   STATES[ff] = STATES[ff] + RATES[ff] * dt;
-//   STATES[fs] = STATES[fs] + RATES[fs] * dt;
-//   STATES[fcaf] = STATES[fcaf] + RATES[fcaf] * dt;
-//   STATES[fcas] = STATES[fcas] + RATES[fcas] * dt;
-//   STATES[jca] = STATES[jca] + RATES[jca] * dt;
-//   STATES[ffp] = STATES[ffp] + RATES[ffp] * dt;
-//   STATES[fcafp] = STATES[fcafp] + RATES[fcafp] * dt;
-//   STATES[nca] = STATES[nca] + RATES[nca] * dt;
-//   STATES[xrf] = STATES[xrf] + RATES[xrf] * dt;
-//   STATES[xrs] = STATES[xrs] + RATES[xrs] * dt;
-//   STATES[xs1] = STATES[xs1] + RATES[xs1] * dt;
-//   STATES[xs2] = STATES[xs2] + RATES[xs2] * dt;
-//   STATES[xk1] = STATES[xk1] + RATES[xk1] * dt;
-//   STATES[Jrelnp] = STATES[Jrelnp] + RATES[Jrelnp] * dt;
-//   STATES[Jrelp] = STATES[Jrelp] + RATES[Jrelp] * dt;
+
 // #else
 ////==============
   ////Exact solution
