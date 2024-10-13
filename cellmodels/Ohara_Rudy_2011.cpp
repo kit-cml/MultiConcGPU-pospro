@@ -969,12 +969,12 @@ RATES[(offset * num_of_rates) + cansr] = ALGEBRAIC[(offset * num_of_algebraic) +
 RATES[(offset * num_of_rates) + cajsr] =  ALGEBRAIC[(offset * num_of_algebraic) + Bcajsr]*(ALGEBRAIC[(offset * num_of_algebraic) + Jtr] - ALGEBRAIC[(offset * num_of_algebraic) + Jrel]);
 }
 
-__device__ void solveEuler( double *STATES, double *RATES, double dt, int offset){
+__device__ void solveEuler(double *STATES, double *RATES, double dt, int offset){
 
   int num_of_states = 41;
   int num_of_rates = 41;
 
-  STATES[(offset * num_of_states) +V] = STATES[(offset * num_of_states) + V] + RATES[(offset * num_of_rates) + V] * dt;
+  STATES[(offset * num_of_states) + V] = STATES[(offset * num_of_states) + V] + RATES[(offset * num_of_rates) + V] * dt;
   STATES[(offset * num_of_states) + CaMKt] = STATES[(offset * num_of_states) + CaMKt] + RATES[(offset * num_of_rates) + CaMKt] * dt;
   STATES[(offset * num_of_states) + cass] = STATES[(offset * num_of_states) + cass] + RATES[(offset * num_of_rates) + cass] * dt;
   STATES[(offset * num_of_states) + nai] = STATES[(offset * num_of_states) + nai] + RATES[(offset * num_of_rates) + nai] * dt;
