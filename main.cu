@@ -630,22 +630,30 @@ int main(int argc, char **argv) {
         // printf("writing sample %d... \n",sample_id);
 
         fprintf(writer,
-                "%d,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf\n",  // change this into string, or
+                "%d,%lf,%lf,%lf, %lf,%lf,%lf, %lf,%lf,%lf, %lf,%lf,%lf,%lf,%lf, %lf,%lf,%lf\n",  // change this into string, or
                                                                                          // limit the decimal accuracy,
                                                                                          // so we can decrease filesize
-                sample_id, h_cipa_result[sample_id].qnet, h_cipa_result[sample_id].inal_auc,
+                sample_id, 
+                h_cipa_result[sample_id].qnet, 
+                h_cipa_result[sample_id].inal_auc,
                 h_cipa_result[sample_id].ical_auc,
 
-                h_cipa_result[sample_id].apd90, h_cipa_result[sample_id].apd50,
+                h_cipa_result[sample_id].apd90, 
+                h_cipa_result[sample_id].apd50,
                 h_cipa_result[sample_id].apd90 - h_cipa_result[sample_id].apd50,
 
-                h_cipa_result[sample_id].cad90, h_cipa_result[sample_id].cad50,
+                h_cipa_result[sample_id].cad90, 
+                h_cipa_result[sample_id].cad50,
                 h_cipa_result[sample_id].cad90 - h_cipa_result[sample_id].cad50,
 
-                h_cipa_result[sample_id].dvmdt_repol, h_cipa_result[sample_id].dvmdt_max, h_cipa_result[sample_id].vm_peak,
-                h_cipa_result[sample_id].vm_valley, h_cipa_result[sample_id].vm_dia,
+                h_cipa_result[sample_id].dvmdt_repol, 
+                h_cipa_result[sample_id].dvmdt_max, 
+                h_cipa_result[sample_id].vm_peak,
+                h_cipa_result[sample_id].vm_valley, 
+                h_cipa_result[sample_id].vm_dia,
 
-                h_cipa_result[sample_id].ca_peak, h_cipa_result[sample_id].ca_valley, 
+                h_cipa_result[sample_id].ca_peak,
+                h_cipa_result[sample_id].ca_valley, 
                 h_cipa_result[sample_id].ca_dia
 
                 

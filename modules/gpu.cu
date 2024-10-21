@@ -193,9 +193,10 @@ __device__ void kernel_DoDrugSim_single(double *d_ic50, double *d_cvar, double d
     while (tcurr[sample_id] < tmax) {
         computeRates(tcurr[sample_id], d_CONSTANTS, d_RATES, d_STATES, d_ALGEBRAIC, sample_id);
         //printf("in the loop\n");
-        // dt_set = set_time_step(tcurr[sample_id], time_point, max_time_step, d_CONSTANTS, d_RATES, d_STATES, d_ALGEBRAIC, sample_id);
+        dt_set = set_time_step(tcurr[sample_id], time_point, max_time_step, d_CONSTANTS, d_RATES, d_STATES, d_ALGEBRAIC, sample_id);
+        
         // for euler only
-        dt_set = 0.001;
+        // dt_set = 0.001;
 
         if (d_STATES[(sample_id * num_of_states) + V] > inet_vm_threshold) {
             inet +=
@@ -316,8 +317,8 @@ __device__ void kernel_DoDrugSim_single(double *d_ic50, double *d_cvar, double d
             // cipa_result[sample_id].dvmdt_repol,t_peak_capture); writen = false;
         }
 
-        // solveAnalytical(d_CONSTANTS, d_STATES, d_ALGEBRAIC, d_RATES, dt[sample_id], sample_id);
-        solveEuler(d_STATES, d_RATES, dt[sample_id], sample_id);
+        solveAnalytical(d_CONSTANTS, d_STATES, d_ALGEBRAIC, d_RATES, dt[sample_id], sample_id);
+        // solveEuler(d_STATES, d_RATES, dt[sample_id], sample_id);
         if (temp_result[sample_id].dvmdt_max < d_RATES[(sample_id * num_of_states) + V])
             temp_result[sample_id].dvmdt_max = d_RATES[(sample_id * num_of_states) + V];
 
