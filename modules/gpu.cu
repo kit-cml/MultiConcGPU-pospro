@@ -23,7 +23,7 @@ __device__ void kernel_DoDrugSim_single(double *d_ic50, double *d_cvar, double d
                                         cipa_t *temp_result, cipa_t *cipa_result, param_t *p_param) {
     unsigned long long input_counter = 0;
 
-    int num_of_constants = 146;
+    int num_of_constants = 145;
     int num_of_states = 41;
     int num_of_algebraic = 199;
     int num_of_rates = 41;
