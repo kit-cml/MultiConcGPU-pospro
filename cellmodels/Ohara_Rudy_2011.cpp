@@ -453,7 +453,15 @@ CONSTANTS[(offset * num_of_constants) + zk] = 1;
 CONSTANTS[(offset * num_of_constants) + L] = 0.01;
 CONSTANTS[(offset * num_of_constants) + rad] = 0.0011;
 CONSTANTS[(offset * num_of_constants) + stim_start] = 10.0;
+// bcl edited in the gpu.cu
 CONSTANTS[(offset * num_of_constants) + BCL] = 1000.0;
+// cvar starts here
+CONSTANTS[(offset * num_of_constants) + Jrel_scale] = 1.0;
+CONSTANTS[(offset * num_of_constants) + Jup_scale] = 1.0;
+CONSTANTS[(offset * num_of_constants) + Jtr_scale] = 1.0;
+CONSTANTS[(offset * num_of_constants) + Jleak_scale] = 1.0;
+//CONSTANTS[(offset * num_of_constants) + KCaMK_scale] = 1.0;
+// cvar ends here
 STATES[(offset * num_of_states) + V] = -87;
 CONSTANTS[(offset * num_of_constants) + amp] = -80;
 CONSTANTS[(offset * num_of_constants) + duration] = 0.5;
@@ -915,16 +923,24 @@ ALGEBRAIC[(offset * num_of_algebraic) + IpCa] = ( CONSTANTS[(offset * num_of_con
 ALGEBRAIC[(offset * num_of_algebraic) + ICab] = ( CONSTANTS[(offset * num_of_constants) + PCab]*4.00000*ALGEBRAIC[(offset * num_of_algebraic) + vffrt]*( STATES[(offset * num_of_states) + cai]*exp( 2.00000*ALGEBRAIC[(offset * num_of_algebraic) + vfrt]) -  0.341000*CONSTANTS[(offset * num_of_constants) + cao]))/(exp( 2.00000*ALGEBRAIC[(offset * num_of_algebraic) + vfrt]) - 1.00000);
 ALGEBRAIC[(offset * num_of_algebraic) + Jdiff] = (STATES[(offset * num_of_states) + cass] - STATES[(offset * num_of_states) + cai])/0.200000;
 ALGEBRAIC[(offset * num_of_algebraic) + fJrelp] = 1.00000/(1.00000+CONSTANTS[(offset * num_of_constants) + KmCaMK]/ALGEBRAIC[(offset * num_of_algebraic) + CaMKa]);
-ALGEBRAIC[(offset * num_of_algebraic) + Jrel] =  (1.00000 - ALGEBRAIC[(offset * num_of_algebraic) + fJrelp])*STATES[(offset * num_of_states) + Jrelnp]+ ALGEBRAIC[(offset * num_of_algebraic) + fJrelp]*STATES[(offset * num_of_states) + Jrelp];
+
+//cvar starts here
+ALGEBRAIC[(offset * num_of_algebraic) + Jrel] = CONSTANTS[(offset * num_of_constants) + Jrel_scale] * ( (1.00000 - ALGEBRAIC[(offset * num_of_algebraic) + fJrelp])*STATES[(offset * num_of_states) + Jrelnp]+ ALGEBRAIC[(offset * num_of_algebraic) + fJrelp]*STATES[(offset * num_of_states) + Jrelp]);
+
 ALGEBRAIC[(offset * num_of_algebraic) + Bcass] = 1.00000/(1.00000+( CONSTANTS[(offset * num_of_constants) + BSRmax]*CONSTANTS[(offset * num_of_constants) + KmBSR])/pow(CONSTANTS[(offset * num_of_constants) + KmBSR]+STATES[(offset * num_of_states) + cass], 2.00000)+( CONSTANTS[(offset * num_of_constants) + BSLmax]*CONSTANTS[(offset * num_of_constants) + KmBSL])/pow(CONSTANTS[(offset * num_of_constants) + KmBSL]+STATES[(offset * num_of_states) + cass], 2.00000));
 ALGEBRAIC[(offset * num_of_algebraic) + Jupnp] = ( CONSTANTS[(offset * num_of_constants) + upScale]*0.00437500*STATES[(offset * num_of_states) + cai])/(STATES[(offset * num_of_states) + cai]+0.000920000);
 ALGEBRAIC[(offset * num_of_algebraic) + Jupp] = ( CONSTANTS[(offset * num_of_constants) + upScale]*2.75000*0.00437500*STATES[(offset * num_of_states) + cai])/((STATES[(offset * num_of_states) + cai]+0.000920000) - 0.000170000);
 ALGEBRAIC[(offset * num_of_algebraic) + fJupp] = 1.00000/(1.00000+CONSTANTS[(offset * num_of_constants) + KmCaMK]/ALGEBRAIC[(offset * num_of_algebraic) + CaMKa]);
-ALGEBRAIC[(offset * num_of_algebraic) + Jleak] = ( 0.00393750*STATES[(offset * num_of_states) + cansr])/15.0000;
-ALGEBRAIC[(offset * num_of_algebraic) + Jup] = ( (1.00000 - ALGEBRAIC[(offset * num_of_algebraic) + fJupp])*ALGEBRAIC[(offset * num_of_algebraic) + Jupnp]+ ALGEBRAIC[(offset * num_of_algebraic) + fJupp]*ALGEBRAIC[(offset * num_of_algebraic) + Jupp]) - ALGEBRAIC[(offset * num_of_algebraic) + Jleak];
+
+ALGEBRAIC[(offset * num_of_algebraic) + Jleak] = CONSTANTS[(offset * num_of_constants) + Jleak_scale] * ( 0.00393750*STATES[(offset * num_of_states) + cansr])/15.0000;
+ALGEBRAIC[(offset * num_of_algebraic) + Jup] = CONSTANTS[(offset * num_of_constants) + Jup_scale] * ( ( (1.00000 - ALGEBRAIC[(offset * num_of_algebraic) + fJupp])*ALGEBRAIC[(offset * num_of_algebraic) + Jupnp]+ ALGEBRAIC[(offset * num_of_algebraic) + fJupp]*ALGEBRAIC[(offset * num_of_algebraic) + Jupp]) - ALGEBRAIC[(offset * num_of_algebraic) + Jleak]);
+
 ALGEBRAIC[(offset * num_of_algebraic) + Bcai] = 1.00000/(1.00000+( CONSTANTS[(offset * num_of_constants) + cmdnmax]*CONSTANTS[(offset * num_of_constants) + kmcmdn])/pow(CONSTANTS[(offset * num_of_constants) + kmcmdn]+STATES[(offset * num_of_states) + cai], 2.00000)+( CONSTANTS[(offset * num_of_constants) + trpnmax]*CONSTANTS[(offset * num_of_constants) + kmtrpn])/pow(CONSTANTS[(offset * num_of_constants) + kmtrpn]+STATES[(offset * num_of_states) + cai], 2.00000));
-ALGEBRAIC[(offset * num_of_algebraic) + Jtr] = (STATES[(offset * num_of_states) + cansr] - STATES[(offset * num_of_states) + cajsr])/100.000;
+
+ALGEBRAIC[(offset * num_of_algebraic) + Jtr] = CONSTANTS[(offset * num_of_constants) + Jtr_scale] * (STATES[(offset * num_of_states) + cansr] - STATES[(offset * num_of_states) + cajsr])/100.000;
+//cvar ends here
 ALGEBRAIC[(offset * num_of_algebraic) + Bcajsr] = 1.00000/(1.00000+( CONSTANTS[(offset * num_of_constants) + csqnmax]*CONSTANTS[(offset * num_of_constants) + kmcsqn])/pow(CONSTANTS[(offset * num_of_constants) + kmcsqn]+STATES[(offset * num_of_states) + cajsr], 2.00000));
+
 
 RATES[(offset * num_of_rates) + hL] = (ALGEBRAIC[(offset * num_of_algebraic) + hLss] - STATES[(offset * num_of_states) + hL])/CONSTANTS[(offset * num_of_constants) + thL];
 RATES[(offset * num_of_rates) + hLp] = (ALGEBRAIC[(offset * num_of_algebraic) + hLssp] - STATES[(offset * num_of_states) + hLp])/CONSTANTS[(offset * num_of_constants) + thLp];
