@@ -438,7 +438,7 @@
 __device__ void ___initConsts(double *CONSTANTS, double *STATES, double type, int offset)
 {
 
-int num_of_constants = 146;
+int num_of_constants = 145;
 int num_of_states = 41;
 // printf("%d\n", offset);
 CONSTANTS[(offset * num_of_constants) + nao] = 140;
@@ -626,7 +626,7 @@ CONSTANTS[(offset * num_of_constants) + Pnak] = (CONSTANTS[(offset * num_of_cons
 
 __device__ void ___applyDutta(double *CONSTANTS, int offset)
 {
-int num_of_constants = 146;
+int num_of_constants = 145;
 //sisanya ganti jadi G (GKs for example)
 CONSTANTS[GKs + (offset * num_of_constants)] *= 1.870;
 CONSTANTS[GKr + (offset * num_of_constants)] *= 1.013;
@@ -640,7 +640,7 @@ CONSTANTS[GNaL + (offset * num_of_constants)] *= 2.661;
 /*==============*/
 __device__ void ___applyCvar(double *CONSTANTS, double *cvar, int offset)
 {
-  int num_of_constants = 146;
+  int num_of_constants = 145;
 
   CONSTANTS[(offset * num_of_constants) +GNa] *= cvar[0 + (offset*18)];		// GNa
   CONSTANTS[(offset * num_of_constants) +GNaL] *= cvar[1 + (offset*18)];		// GNaL
@@ -667,7 +667,7 @@ __device__ void ___applyCvar(double *CONSTANTS, double *cvar, int offset)
 
 __device__ void applyDrugEffect(double *CONSTANTS, double conc, double *ic50, double epsilon, int offset)
 {
-int num_of_constants = 146;
+int num_of_constants = 145;
 
 CONSTANTS[GK1+(offset * num_of_constants)] = CONSTANTS[GK1+(offset * num_of_constants)] * ((ic50[2 + (offset*14)] > epsilon && ic50[3+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[2+ (offset*14)],ic50[3+ (offset*14)])) : 1.);
 CONSTANTS[GKr+(offset * num_of_constants)] = CONSTANTS[GKr+(offset * num_of_constants)] * ((ic50[12+ (offset*14)] > epsilon && ic50[13+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[12+ (offset*14)],ic50[13+ (offset*14)])) : 1.);
@@ -691,7 +691,7 @@ CONSTANTS[PCa+(offset * num_of_constants)] = CONSTANTS[PCa+(offset * num_of_cons
 
 __device__ void initConsts(double *CONSTANTS, double *STATES, double type, double conc, double *ic50, double *cvar, bool is_dutta, bool is_cvar,  int offset)
 {
-  // int num_of_constants = 146;
+  // int num_of_constants = 145;
   // printf("ic50:%d %lf, %lf, %lf\n",offset,ic50[0 + (offset*14)],ic50[1 + (offset*14)],ic50[2 + (offset*14)]);
 
 	___initConsts(CONSTANTS, STATES, type, offset); // initconst kan minta 
@@ -722,7 +722,7 @@ __device__ void initConsts(double *CONSTANTS, double *STATES, double type, doubl
 
 __device__ void computeRates( double TIME, double *CONSTANTS, double *RATES, double *STATES, double *ALGEBRAIC, int offset )
 {
-int num_of_constants = 146; //done
+int num_of_constants = 145; //done
 int num_of_states = 41; //done
 int num_of_algebraic = 199; //done
 int num_of_rates = 41; //done
@@ -1019,7 +1019,7 @@ __device__ void solveEuler(double *STATES, double *RATES, double dt, int offset)
 
 __device__ void solveAnalytical(double *CONSTANTS, double *STATES, double *ALGEBRAIC, double *RATES, double dt, int offset)
 {
-  int num_of_constants = 146;
+  int num_of_constants = 145;
   int num_of_states = 41;
   int num_of_algebraic = 199;
   int num_of_rates = 41;
@@ -1108,7 +1108,7 @@ __device__ double set_time_step(double TIME,
   double *ALGEBRAIC,
   int offset) {
   double time_step = 0.005;
-  int num_of_constants = 146;
+  int num_of_constants = 145;
   int num_of_rates = 41;
 
   if (TIME <= time_point || (TIME - floor(TIME / CONSTANTS[BCL + (offset * num_of_constants)]) * CONSTANTS[BCL + (offset * num_of_constants)]) <= time_point) {
