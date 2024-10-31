@@ -736,6 +736,22 @@ int num_of_states = 41; //done
 int num_of_algebraic = 199; //done
 int num_of_rates = 41; //done
 
+//new part
+CONSTANTS[(offset * num_of_constants) + cmdnmax] = (CONSTANTS[(offset * num_of_constants) + celltype]==1.00000 ?  CONSTANTS[(offset * num_of_constants) + cmdnmax_b]*1.30000 : CONSTANTS[(offset * num_of_constants) + cmdnmax_b]);
+CONSTANTS[(offset * num_of_constants) + GNaL] = (CONSTANTS[(offset * num_of_constants) + celltype]==1.00000 ?  CONSTANTS[(offset * num_of_constants) + GNaL_b]*0.600000 : CONSTANTS[(offset * num_of_constants) + GNaL_b]);
+CONSTANTS[(offset * num_of_constants) + Gto] = (CONSTANTS[(offset * num_of_constants) + celltype]==1.00000 ?  CONSTANTS[(offset * num_of_constants) + Gto_b]*4.00000 : CONSTANTS[(offset * num_of_constants) + celltype]==2.00000 ?  CONSTANTS[(offset * num_of_constants) + Gto_b]*4.00000 : CONSTANTS[(offset * num_of_constants) + Gto_b]);
+CONSTANTS[(offset * num_of_constants) + PCa] = (CONSTANTS[(offset * num_of_constants) + celltype]==1.00000 ?  CONSTANTS[(offset * num_of_constants) + PCa_b]*1.20000 : CONSTANTS[(offset * num_of_constants) + celltype]==2.00000 ?  CONSTANTS[(offset * num_of_constants) + PCa_b]*2.50000 : CONSTANTS[(offset * num_of_constants) + PCa_b]);
+CONSTANTS[(offset * num_of_constants) + GKr] = (CONSTANTS[(offset * num_of_constants) + celltype]==1.00000 ?  CONSTANTS[(offset * num_of_constants) + GKr_b]*1.30000 : CONSTANTS[(offset * num_of_constants) + celltype]==2.00000 ?  CONSTANTS[(offset * num_of_constants) + GKr_b]*0.800000 : CONSTANTS[(offset * num_of_constants) + GKr_b]);
+CONSTANTS[(offset * num_of_constants) + GKs] = (CONSTANTS[(offset * num_of_constants) + celltype]==1.00000 ?  CONSTANTS[(offset * num_of_constants) + GKs_b]*1.40000 : CONSTANTS[(offset * num_of_constants) + GKs_b]);
+CONSTANTS[(offset * num_of_constants) + GK1] = (CONSTANTS[(offset * num_of_constants) + celltype]==1.00000 ?  CONSTANTS[(offset * num_of_constants) + GK1_b]*1.20000 : CONSTANTS[(offset * num_of_constants) + celltype]==2.00000 ?  CONSTANTS[(offset * num_of_constants) + GK1_b]*1.30000 : CONSTANTS[(offset * num_of_constants) + GK1_b]);
+CONSTANTS[(offset * num_of_constants) + GKb] = (CONSTANTS[(offset * num_of_constants) + celltype]==1.00000 ?  CONSTANTS[(offset * num_of_constants) + GKb_b]*0.600000 : CONSTANTS[(offset * num_of_constants) + GKb_b]);
+CONSTANTS[(offset * num_of_constants) + upScale] = (CONSTANTS[(offset * num_of_constants) + celltype]==1.0000 ? 1.30000 : 1.00000);
+CONSTANTS[(offset * num_of_constants) + Gncx] = (CONSTANTS[(offset * num_of_constants) + celltype]==1.00000 ?  CONSTANTS[(offset * num_of_constants) + Gncx_b]*1.10000 : CONSTANTS[(offset * num_of_constants) + celltype]==2.00000 ?  CONSTANTS[(offset * num_of_constants) + Gncx_b]*1.40000 : CONSTANTS[(offset * num_of_constants) + Gncx_b]);
+CONSTANTS[(offset * num_of_constants) + Pnak] = (CONSTANTS[(offset * num_of_constants) + celltype]==1.00000 ?  CONSTANTS[(offset * num_of_constants) + Pnak_b]*0.900000 : CONSTANTS[(offset * num_of_constants) + celltype]==2.00000 ?  CONSTANTS[(offset * num_of_constants) + Pnak_b]*0.700000 : CONSTANTS[(offset * num_of_constants) + Pnak_b]);
+// new part ends
+ALGEBRAIC[(offset * num_of_algebraic) +Istim] = (TIME>=CONSTANTS[(offset * num_of_constants) + stim_start] && (TIME - CONSTANTS[(offset * num_of_constants) + stim_start]) - floor((TIME - CONSTANTS[(offset * num_of_constants) + stim_start])/CONSTANTS[(offset * num_of_constants) + BCL])*CONSTANTS[(offset * num_of_constants) + BCL]<=CONSTANTS[(offset * num_of_constants) + duration] ? CONSTANTS[(offset * num_of_constants) + amp] : 0.000000);
+// in libcml there is ifdef TISSUE, ask further
+
 ALGEBRAIC[(offset * num_of_algebraic) +Istim] = (TIME>=CONSTANTS[(offset * num_of_constants) + stim_start] && (TIME - CONSTANTS[(offset * num_of_constants) + stim_start]) - floor((TIME - CONSTANTS[(offset * num_of_constants) + stim_start])/CONSTANTS[(offset * num_of_constants) + BCL])*CONSTANTS[(offset * num_of_constants) + BCL]<=CONSTANTS[(offset * num_of_constants) + duration] ? CONSTANTS[(offset * num_of_constants) + amp] : 0.000000);
 ALGEBRAIC[(offset * num_of_algebraic) +hLss] = 1.00000/(1.00000+exp((STATES[(offset * num_of_states) + V]+87.6100)/7.48800));
 ALGEBRAIC[(offset * num_of_algebraic) +hLssp] = 1.00000/(1.00000+exp((STATES[(offset * num_of_states) + V]+93.8100)/7.48800));
