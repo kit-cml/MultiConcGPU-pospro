@@ -652,15 +652,15 @@ __device__ void ___applyCvar(double *CONSTANTS, double *cvar, int offset)
   int num_of_constants = 145;
 
   CONSTANTS[(offset * num_of_constants) +GNa] *= cvar[0 + (offset*18)];		// GNa
-  CONSTANTS[(offset * num_of_constants) +GNaL] *= cvar[1 + (offset*18)];		// GNaL
-  CONSTANTS[(offset * num_of_constants) +Gto] *= cvar[2 + (offset*18)];		// Gto
-  CONSTANTS[(offset * num_of_constants) +GKr] *= cvar[3 + (offset*18)];		// GKr
-  CONSTANTS[(offset * num_of_constants) +GKs] *= cvar[4 + (offset*18)];		// GKs
-  CONSTANTS[(offset * num_of_constants) +GK1] *= cvar[5 + (offset*18)];		// GK1
-  CONSTANTS[(offset * num_of_constants) +Gncx] *= cvar[6 + (offset*18)];		// GNaCa
-  CONSTANTS[(offset * num_of_constants) +GKb] *= cvar[7 + (offset*18)];		// GKb
+  CONSTANTS[(offset * num_of_constants) +GNaL_b] *= cvar[1 + (offset*18)];		// GNaL
+  CONSTANTS[(offset * num_of_constants) +Gto_b] *= cvar[2 + (offset*18)];		// Gto
+  CONSTANTS[(offset * num_of_constants) +GKr_b] *= cvar[3 + (offset*18)];		// GKr
+  CONSTANTS[(offset * num_of_constants) +GKs_b] *= cvar[4 + (offset*18)];		// GKs
+  CONSTANTS[(offset * num_of_constants) +GK1_b] *= cvar[5 + (offset*18)];		// GK1
+  CONSTANTS[(offset * num_of_constants) +Gncx_b] *= cvar[6 + (offset*18)];		// GNaCa
+  CONSTANTS[(offset * num_of_constants) +GKb_b] *= cvar[7 + (offset*18)];		// GKb
   CONSTANTS[(offset * num_of_constants) +PCa] *= cvar[8 + (offset*18)];		// PCa
-  CONSTANTS[(offset * num_of_constants) +Pnak] *= cvar[9 + (offset*18)];		// INaK
+  CONSTANTS[(offset * num_of_constants) +Pnak_b] *= cvar[9 + (offset*18)];		// INaK
   CONSTANTS[(offset * num_of_constants) +PNab] *= cvar[10 + (offset*18)];		// PNab
   CONSTANTS[(offset * num_of_constants) +PCab] *= cvar[11 + (offset*18)];		// PCab
   CONSTANTS[(offset * num_of_constants) +GpCa] *= cvar[12 + (offset*18)];		// GpCa
@@ -679,21 +679,21 @@ __device__ void applyDrugEffect(double *CONSTANTS, double conc, double *ic50, do
 int num_of_constants = 145;
 
 // check drug effect
-CONSTANTS[GK1+(offset * num_of_constants)] = CONSTANTS[GK1+(offset * num_of_constants)] * ((ic50[2 + (offset*14)] > epsilon && ic50[3+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[2+ (offset*14)],ic50[3+ (offset*14)])) : 1.);
-CONSTANTS[GKr+(offset * num_of_constants)] = CONSTANTS[GKr+(offset * num_of_constants)] * ((ic50[12+ (offset*14)] > epsilon && ic50[13+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[12+ (offset*14)],ic50[13+ (offset*14)])) : 1.);
-CONSTANTS[GKs+(offset * num_of_constants)] = CONSTANTS[GKs+(offset * num_of_constants)] * ((ic50[4 + (offset*14)] > epsilon && ic50[5+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[4+ (offset*14)],ic50[5+ (offset*14)])) : 1.);
-CONSTANTS[GNaL+(offset * num_of_constants)] = CONSTANTS[GNaL+(offset * num_of_constants)] = CONSTANTS[GNaL+(offset * num_of_constants)] * ((ic50[8+ (offset*14)] > epsilon && ic50[9+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[8+ (offset*14)],ic50[9+ (offset*14)])) : 1.);
-CONSTANTS[GNa+(offset * num_of_constants)] = CONSTANTS[GNa+(offset * num_of_constants)] * ((ic50[6 + (offset*14)] > epsilon && ic50[7+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[6+ (offset*14)],ic50[7+ (offset*14)])) : 1.);
-CONSTANTS[Gto+(offset * num_of_constants)] = CONSTANTS[Gto+(offset * num_of_constants)] * ((ic50[10 + (offset*14)] > epsilon && ic50[11+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[10+ (offset*14)],ic50[11+ (offset*14)])) : 1.);
-CONSTANTS[PCa+(offset * num_of_constants)] = CONSTANTS[PCa+(offset * num_of_constants)] * ( (ic50[0 + (offset*14)] > epsilon && ic50[1+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[0+ (offset*14)],ic50[1+ (offset*14)])) : 1.);
-
-// CONSTANTS[PCa_b+(offset * num_of_constants)] = CONSTANTS[PCa_b+(offset * num_of_constants)] * ( (ic50[0 + (offset*14)] > epsilon && ic50[1+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[0+ (offset*14)],ic50[1+ (offset*14)])) : 1.);
-// CONSTANTS[GK1_b+(offset * num_of_constants)] = CONSTANTS[GK1_b+(offset * num_of_constants)] * ((ic50[2 + (offset*14)] > epsilon && ic50[3+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[2+ (offset*14)],ic50[3+ (offset*14)])) : 1.);
-// CONSTANTS[GKs_b+(offset * num_of_constants)] = CONSTANTS[GKs_b+(offset * num_of_constants)] * ((ic50[4 + (offset*14)] > epsilon && ic50[5+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[4+ (offset*14)],ic50[5+ (offset*14)])) : 1.);
+// CONSTANTS[GK1+(offset * num_of_constants)] = CONSTANTS[GK1+(offset * num_of_constants)] * ((ic50[2 + (offset*14)] > epsilon && ic50[3+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[2+ (offset*14)],ic50[3+ (offset*14)])) : 1.);
+// CONSTANTS[GKr+(offset * num_of_constants)] = CONSTANTS[GKr+(offset * num_of_constants)] * ((ic50[12+ (offset*14)] > epsilon && ic50[13+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[12+ (offset*14)],ic50[13+ (offset*14)])) : 1.);
+// CONSTANTS[GKs+(offset * num_of_constants)] = CONSTANTS[GKs+(offset * num_of_constants)] * ((ic50[4 + (offset*14)] > epsilon && ic50[5+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[4+ (offset*14)],ic50[5+ (offset*14)])) : 1.);
+// CONSTANTS[GNaL+(offset * num_of_constants)] = CONSTANTS[GNaL+(offset * num_of_constants)] = CONSTANTS[GNaL+(offset * num_of_constants)] * ((ic50[8+ (offset*14)] > epsilon && ic50[9+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[8+ (offset*14)],ic50[9+ (offset*14)])) : 1.);
 // CONSTANTS[GNa+(offset * num_of_constants)] = CONSTANTS[GNa+(offset * num_of_constants)] * ((ic50[6 + (offset*14)] > epsilon && ic50[7+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[6+ (offset*14)],ic50[7+ (offset*14)])) : 1.);
-// CONSTANTS[GNaL_b+(offset * num_of_constants)] = CONSTANTS[GNaL_b+(offset * num_of_constants)] * ((ic50[8+ (offset*14)] > epsilon && ic50[9+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[8+ (offset*14)],ic50[9+ (offset*14)])) : 1.);
-// CONSTANTS[Gto_b+(offset * num_of_constants)] = CONSTANTS[Gto_b+(offset * num_of_constants)] * ((ic50[10 + (offset*14)] > epsilon && ic50[11+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[10+ (offset*14)],ic50[11+ (offset*14)])) : 1.);
-// CONSTANTS[GKr_b+(offset * num_of_constants)] = CONSTANTS[GKr_b+(offset * num_of_constants)] * ((ic50[12+ (offset*14)] > epsilon && ic50[13+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[12+ (offset*14)],ic50[13+ (offset*14)])) : 1.);
+// CONSTANTS[Gto+(offset * num_of_constants)] = CONSTANTS[Gto+(offset * num_of_constants)] * ((ic50[10 + (offset*14)] > epsilon && ic50[11+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[10+ (offset*14)],ic50[11+ (offset*14)])) : 1.);
+// CONSTANTS[PCa+(offset * num_of_constants)] = CONSTANTS[PCa+(offset * num_of_constants)] * ( (ic50[0 + (offset*14)] > epsilon && ic50[1+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[0+ (offset*14)],ic50[1+ (offset*14)])) : 1.);
+
+CONSTANTS[PCa_b+(offset * num_of_constants)] = CONSTANTS[PCa_b+(offset * num_of_constants)] * ( (ic50[0 + (offset*14)] > epsilon && ic50[1+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[0+ (offset*14)],ic50[1+ (offset*14)])) : 1.);
+CONSTANTS[GK1_b+(offset * num_of_constants)] = CONSTANTS[GK1_b+(offset * num_of_constants)] * ((ic50[2 + (offset*14)] > epsilon && ic50[3+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[2+ (offset*14)],ic50[3+ (offset*14)])) : 1.);
+CONSTANTS[GKs_b+(offset * num_of_constants)] = CONSTANTS[GKs_b+(offset * num_of_constants)] * ((ic50[4 + (offset*14)] > epsilon && ic50[5+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[4+ (offset*14)],ic50[5+ (offset*14)])) : 1.);
+CONSTANTS[GNa+(offset * num_of_constants)] = CONSTANTS[GNa+(offset * num_of_constants)] * ((ic50[6 + (offset*14)] > epsilon && ic50[7+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[6+ (offset*14)],ic50[7+ (offset*14)])) : 1.);
+CONSTANTS[GNaL_b+(offset * num_of_constants)] = CONSTANTS[GNaL_b+(offset * num_of_constants)] * ((ic50[8+ (offset*14)] > epsilon && ic50[9+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[8+ (offset*14)],ic50[9+ (offset*14)])) : 1.);
+CONSTANTS[Gto_b+(offset * num_of_constants)] = CONSTANTS[Gto_b+(offset * num_of_constants)] * ((ic50[10 + (offset*14)] > epsilon && ic50[11+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[10+ (offset*14)],ic50[11+ (offset*14)])) : 1.);
+CONSTANTS[GKr_b+(offset * num_of_constants)] = CONSTANTS[GKr_b+(offset * num_of_constants)] * ((ic50[12+ (offset*14)] > epsilon && ic50[13+ (offset*14)] > epsilon) ? 1./(1.+pow(conc/ic50[12+ (offset*14)],ic50[13+ (offset*14)])) : 1.);
 
 }
 
